@@ -31,9 +31,9 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlte/dist/js/demo.js') }}"></script>
     <!-- Datatables JS -->
-    <script type="text/javascript" src="{{asset('adminlte/dist/js/datatables.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('adminlte/dist/js/datatables.min.js') }}"></script>
     <!-- Main JS -->
-    <script type="text/javascript" src="{{asset('adminlte/dist/js/main.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('adminlte/dist/js/main.js') }}"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
@@ -57,11 +57,11 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- Datatables CSS -->
-    <link rel="stylesheet" type="text/css" href="{{asset('adminlte/dist/css/datatables.min.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminlte/dist/css/datatables.min.css') }}" />
     <!-- Datatables CSS -->
-    <link rel="stylesheet" type="text/css" href="{{asset('adminlte/dist/css/dataTables.bootstrap4.min.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminlte/dist/css/dataTables.bootstrap4.min.css') }}" />
     <!-- Main CSS -->
-    <link rel="stylesheet" type="text/css" href="{{asset('adminlte/dist/css/main.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminlte/dist/css/main.css') }}" />
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -146,7 +146,7 @@
                         </li>
                         <li class="nav-header">SISTEMA</li>
                         <li class="nav-item">
-                            <a href="pages/calendar.html" class="nav-link">
+                            <a href="{{ route('moduleList') }}" class="nav-link">
                                 <i class="fas fa-cube nav-icon text-primary"></i>
                                 <p>
                                     Módulos
@@ -191,7 +191,7 @@
                with font-awesome or any other icon font library -->
                     <li class="nav-header text-warning">Informações do Usuário</li>
                     <li class="nav-item">
-                        <a href="pages/calendar.html" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="far fa-id-badge nav-icon text-primary"></i>
                             <p>
                                 Dados do Usuário
@@ -199,7 +199,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/calendar.html" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="fas fa-user-shield nav-icon text-primary"></i>
                             <p>
                                 Trocar Senha
@@ -207,7 +207,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/calendar.html" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="fas fa-sign-in-alt nav-icon text-primary"></i>
                             <p>
                                 Sair do Sistema
@@ -220,6 +220,32 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
+    <!-- Modal Error-->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-light">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="errorModalLabel">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Erro
+                    </h5>
+                </div>
+                <div class="modal-body text-danger">
+                    @if ($errors->any())
+                        <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                        </ul>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 

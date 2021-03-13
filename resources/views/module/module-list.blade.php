@@ -56,7 +56,7 @@
                                         <tr >
                                             <td class="p-1">{{ $module->name }}</td>
                                             <td class="text-center p-1">
-                                                <a href="#" class="btn btn-sm btn-warning p-1">
+                                                <a href="{{route("moduleEdit",['id' => $module->id])}}" class="btn btn-sm btn-warning p-1">
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-sm btn-danger p-1">

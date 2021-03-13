@@ -25,7 +25,7 @@ class ModuleController extends Controller
      */
     public function create()
     {
-        return view('module.module-insert');
+        return view('module.module-form');
     }
 
     /**
@@ -36,6 +36,12 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required'
+        ],[
+            'name.required' => 'O campo Nome é Obrigatório.'
+        ]);
+
         module::create([
             'name' => $request->name
         ]);
@@ -61,7 +67,8 @@ class ModuleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $module = module::find($id);
+        return view("module.module-form",["module" => $module]);
     }
 
     /**
@@ -71,9 +78,16 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ],[
+            'name.required' => 'O campo Nome é Obrigatório.'
+        ]);
+
+        module::where('id',$request->id)->update(['name' => $request->name]);
+        return redirect()->route('moduleList');
     }
 
     /**
