@@ -16,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/module','ModuleController@index')->name('moduleList');
 Route::get('/module/create','ModuleController@create')->name('moduleCreate');
 Route::get('/module/edit/{id}','ModuleController@edit')->name('moduleEdit');
+Route::get('/module/delete/{id}','ModuleController@delete')->name('moduleDelete');
 Route::post('/modules/update','ModuleController@update')->name('moduleUpdate');
 Route::post('/module/store','ModuleController@store')->name('moduleStore');
+Route::post('/module/destroy','ModuleController@destroy')->name('moduleDestroy');
+

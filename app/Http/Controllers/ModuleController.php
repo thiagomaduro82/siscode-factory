@@ -2,37 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\module;
+use App\Classes\Functionalities;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+
+    private $functionalities;
+
+    public function __construct()
+    {
+        $this->functionalities = new Functionalities();
+    }
+    /*
+     * Mostra a lista de módulos cadastrados.
      */
     public function index()
     {
-        $moduleList = module::all();
-        return view('module.module-list',['moduleList' => $moduleList]);
+        $data = [];
+        $delete = session('delete');
+        if(!empty($delete)){
+            $data += ['delete' => $delete];
+        }
+        $moduleList = Module::all();
+        $data += ['moduleList' => $moduleList];
+        return view('module.module-list',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+     * Mostra o formulário para inclusão de módulos.
      */
     public function create()
     {
         return view('module.module-form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+    /*
+     * Grava os dados do módulo no banco de dados.
+     * Redireciona para a lista de módulos.
      */
     public function store(Request $request)
     {
@@ -42,41 +50,24 @@ class ModuleController extends Controller
             'name.required' => 'O campo Nome é Obrigatório.'
         ]);
 
-        module::create([
+        Module::create([
             'name' => $request->name
         ]);
         return redirect()->route('moduleList');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+     * Mostra o formulário para alteração de um módulo específico.
      */
     public function edit($id)
     {
-        $module = module::find($id);
+        $module = Module::find($this->functionalities->decript($id));
         return view("module.module-form",["module" => $module]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+     * Grava a alteração dos dados do módulo no banco de dados.
+     * Redireciona para a lista de módulos
      */
     public function update(Request $request)
     {
@@ -86,18 +77,27 @@ class ModuleController extends Controller
             'name.required' => 'O campo Nome é Obrigatório.'
         ]);
 
-        module::where('id',$request->id)->update(['name' => $request->name]);
+        Module::where('id',$request->id)->update(['name' => $request->name]);
         return redirect()->route('moduleList');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+     * Exibi uma modal perguntando se o usuário realmente deseja excluir esse registro.
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        session()->flash('delete', $id);
+        return redirect()->route('moduleList');
+
+    }
+
+    /*
+     * Através do mecanismo de SoftDeletes - inutiliza o módulo no sistema.
+     * Atualiza a lista de módulos.
+     */
+    public function destroy(Request $request)
+    {
+        Module::find($request->id)->delete();
+        return redirect()->route('moduleList');
     }
 }
