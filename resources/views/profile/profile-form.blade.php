@@ -5,14 +5,14 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Módulos</h1>
+                    <h1 class="m-0 text-dark">Perfis</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        @if (!isset($module))
-                            <li class="breadcrumb-item active">Inclusão Módulos</li>
+                        @if (!isset($profile))
+                            <li class="breadcrumb-item active">Inclusão Perfil</li>
                         @else
-                            <li class="breadcrumb-item active">Edição Módulos</li>
+                            <li class="breadcrumb-item active">Edição Perfil</li>
                         @endif
 
                     </ol>
@@ -31,15 +31,15 @@
                     <!-- Custom tabs (Charts with tabs)-->
                     <div class="card shadow">
                         <div class="card-header text-info">
-                            @if (!isset($module))
+                            @if (!isset($profile))
                                 <h3 class="card-title">
-                                    <i class="fas fa-cube mr-1"></i>
-                                    Inclusão de Módulos
+                                    <i class="far fa-address-card mr-1"></i>
+                                    Inclusão de Perfil
                                 </h3>
                             @else
                                 <h3 class="card-title">
-                                    <i class="fas fa-cube mr-1"></i>
-                                    Edição de Módulos
+                                    <i class="far fa-address-card mr-1"></i>
+                                    Edição de Perfil
                                 </h3>
                             @endif
 
@@ -48,15 +48,15 @@
                             </div>
                         </div><!-- /.card-header -->
                         <div class="card-body">
-                            @if (isset($module))
-                                <form action="{{ route('moduleUpdate') }}" method="post">
+                            @if (isset($profile))
+                                <form action="{{ route('profileUpdate') }}" method="post">
                                     @csrf
                                     <div class="row">
                                         <div class="col">
                                             <label for="name" class="form-label">Nome</label>
-                                            <input type="hidden" name="id" value="{{ $module->id }}">
+                                            <input type="hidden" name="id" value="{{ $profile->id }}">
                                             <input type="text" class="form-control form-control-sm" name="name"
-                                                value="{{ $module->name }}">
+                                                value="{{ $profile->name }}">
                                         </div>
                                     </div>
                                     <div class="row mt-4 text-right">
@@ -65,7 +65,7 @@
                                                 <i class="far fa-save mr-1"></i>
                                                 Alterar
                                             </button>
-                                            <a href="{{ route('moduleList') }}" class="btn btn-sm btn-warning">
+                                            <a href="{{ route('profileList') }}" class="btn btn-sm btn-warning">
                                                 <i class="fas fa-arrow-circle-left"></i>
                                                 Cancelar
                                             </a>
@@ -73,7 +73,7 @@
                                     </div>
                                 </form>
                             @else
-                                <form action="{{ route('moduleStore') }}" method="post">
+                                <form action="{{ route('profileStore') }}" method="post">
                                     @csrf
                                     <div class="row">
                                         <div class="col">
@@ -87,7 +87,7 @@
                                                 <i class="far fa-save mr-1"></i>
                                                 Salvar
                                             </button>
-                                            <a href="{{ route('moduleList') }}" class="btn btn-sm btn-warning">
+                                            <a href="{{ route('profileList') }}" class="btn btn-sm btn-warning">
                                                 <i class="fas fa-arrow-circle-left"></i>
                                                 Cancelar
                                             </a>

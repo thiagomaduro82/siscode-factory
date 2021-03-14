@@ -154,10 +154,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/calendar.html" class="nav-link">
+                            <a href="{{ route('submoduleList') }}" class="nav-link">
                                 <i class="fas fa-cubes nav-icon text-primary"></i>
                                 <p>
                                     Sub-Módulos
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('profileList') }}" class="nav-link">
+                                <i class="far fa-address-card nav-icon text-primary"></i>
+                                <p>
+                                    Perfis
                                 </p>
                             </a>
                         </li>

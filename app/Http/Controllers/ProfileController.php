@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\Functionalities;
-use App\Models\Module;
 use Illuminate\Http\Request;
+use App\Classes\Functionalities;
+use App\Models\Profile;
 
-class ModuleController extends Controller
+class ProfileController extends Controller
 {
-
     private $functionalities;
 
     public function __construct()
     {
         $this->functionalities = new Functionalities();
     }
+
     /*
-     * Mostra a lista de módulos cadastrados.
+     * Mostra a lista de perfis cadastrados.
      */
     public function index()
     {
@@ -25,22 +25,22 @@ class ModuleController extends Controller
         if(!empty($delete)){
             $data += ['delete' => $delete];
         }
-        $moduleList = Module::all();
-        $data += ['moduleList' => $moduleList];
-        return view('module.module-list',$data);
+        $profileList = Profile::all();
+        $data += ['profileList' => $profileList];
+        return view('profile.profile-list',$data);
     }
 
     /*
-     * Mostra o formulário para inclusão de módulos.
+     * Mostra o formulário para inclusão de perfis.
      */
     public function create()
     {
-        return view('module.module-form');
+        return view("profile.profile-form");
     }
 
     /*
-     * Grava os dados do módulo no banco de dados.
-     * Redireciona para a lista de módulos.
+     * Grava os dados do perfil no banco de dados.
+     * Redireciona para a lista de perfis.
      */
     public function store(Request $request)
     {
@@ -50,19 +50,19 @@ class ModuleController extends Controller
             'name.required' => 'O campo Nome é Obrigatório.'
         ]);
 
-        Module::create([
+        Profile::create([
             'name' => $request->name
         ]);
-        return redirect()->route('moduleList');
+        return redirect()->route('profileList');
     }
 
     /*
-     * Mostra o formulário para alteração de um módulo específico.
+     * Mostra o formulário para alteração de um perfil específico.
      */
     public function edit($id)
     {
-        $module = Module::find($this->functionalities->decript($id));
-        return view("module.module-form",["module" => $module]);
+        $profile = Profile::find($this->functionalities->decript($id));
+        return view("profile.profile-form",["profile" => $profile]);
     }
 
     /*
@@ -77,8 +77,8 @@ class ModuleController extends Controller
             'name.required' => 'O campo Nome é Obrigatório.'
         ]);
 
-        Module::where('id',$request->id)->update(['name' => $request->name]);
-        return redirect()->route('moduleList');
+        Profile::where('id',$request->id)->update(['name' => $request->name]);
+        return redirect()->route('profileList');
     }
 
     /*
@@ -87,7 +87,7 @@ class ModuleController extends Controller
     public function delete($id)
     {
         session()->flash('delete', $id);
-        return redirect()->route('moduleList');
+        return redirect()->route('profileList');
 
     }
 
@@ -97,8 +97,7 @@ class ModuleController extends Controller
      */
     public function destroy(Request $request)
     {
-        Module::find($request->id)->delete();
-        return redirect()->route('moduleList');
+        Profile::find($request->id)->delete();
+        return redirect()->route('profileList');
     }
-
 }

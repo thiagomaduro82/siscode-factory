@@ -9,11 +9,11 @@ $functionalities = new Functionalities();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Módulos</h1>
+                    <h1 class="m-0 text-dark">Perfis</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Listagem Módulos</li>
+                        <li class="breadcrumb-item active">Listagem Perfis</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -31,13 +31,13 @@ $functionalities = new Functionalities();
                     <div class="card shadow">
                         <div class="card-header text-info">
                             <h3 class="card-title">
-                                <i class="fas fa-cube mr-1"></i>
-                                Listagem de Módulos
+                                <i class="far fa-address-card mr-1"></i>
+                                Listagem de Perfis
                             </h3>
                             <div class="card-tools">
                                 <ul class="nav nav-pills ml-auto">
                                     <li class="nav-item">
-                                        <a class="btn btn-sm btn-success" href="{{ route('moduleCreate') }}">
+                                        <a class="btn btn-sm btn-success" href="{{ route('profileCreate') }}">
                                             <i class="fas fa-plus-circle mr-1"></i>
                                             Incluir
                                         </a>
@@ -55,18 +55,23 @@ $functionalities = new Functionalities();
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($moduleList as $module)
+                                    @foreach ($profileList as $profile)
                                         <tr>
-                                            <td class="p-1">{{ $module->name }}</td>
+                                            <td class="p-1">{{ $profile->name }}</td>
                                             <td class="text-center p-1">
-                                                <a href="{{ route('moduleEdit', ['id' => $functionalities->encript($module->id)]) }}"
+                                                <a href="{{ route('profileEdit', ['id' => $functionalities->encript($profile->id)]) }}"
                                                     class="btn btn-sm btn-warning p-1">
                                                     <i class="far fa-edit"></i>
                                                 </a>
-                                                <a href="{{ route('moduleDelete', ['id' => $functionalities->encript($module->id)]) }}"
+                                                <a href="{{ route('profileDelete', ['id' => $functionalities->encript($profile->id)]) }}"
                                                     class="btn btn-sm btn-danger p-1">
                                                     <i class="far fa-trash-alt"></i>
                                                 </a>
+                                                <a href="#"
+                                                    class="btn btn-sm btn-success p-1">
+                                                    <i class="far fa-list-alt"></i>
+                                                </a>
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -92,7 +97,7 @@ $functionalities = new Functionalities();
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content bg-light">
-                    <form action="{{ route('moduleDestroy') }}" method="POST">
+                    <form action="{{ route('profileDestroy') }}" method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title text-warning" id="deleteModalLabel">
                                 <i class="far fa-question-circle"></i>
@@ -105,7 +110,7 @@ $functionalities = new Functionalities();
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $functionalities->decript($delete) }}">
 
-                                <p>Deseja realmente excluir esse Módulo ?</p>
+                                <p>Deseja realmente excluir esse Perfil ?</p>
                             @endif
                         </div>
                         <div class="modal-footer">

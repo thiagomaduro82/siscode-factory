@@ -9,4 +9,8 @@ class Module extends Model
 {
     use SoftDeletes;
     protected $fillable = ['name'];
+
+    public function submodules(){
+        return $this->hasMany('App\Models\Submodule','moduleid','id');
+    }
 }
